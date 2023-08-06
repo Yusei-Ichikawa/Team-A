@@ -54,7 +54,7 @@ def main(num=1000):
 
 if __name__ == '__main__':
 
-    print('Input reference corpus')
+    print('Input reference corpus ->', end=' ')
     ReCorpus = input()
 
     # How to use main.py of worfFreq and keywordFreq.
