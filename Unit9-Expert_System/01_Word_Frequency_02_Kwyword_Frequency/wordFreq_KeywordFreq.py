@@ -46,6 +46,7 @@ def CreateDict_SharedWords(dict1, dict2, n=1000):
     return common_keys_dict
 
 # 共通している Word Frequencies のリストを出力
+## (Output a list of common Word Frequnecies)
 def wordFreq(S_dict):
 
     # word frequenciesの候補（candidate of word frequencies）
@@ -68,6 +69,70 @@ def keywordFreq(S_dict, S_wf):
     S_kw = {key: S_dict[key] for key in S_dict.keys() if key not in S_wf}
 
     return S_kw
+
+# ２つのDatasetの単語の出現数を比較する
+# (Compare the number of occurrences of a word in two Datasets)
+def Comper_dataset_WordFreqKeywordFreq(wf1, wf2, kw1, kw2, num=20):
+
+    n_wf1 = len(wf1)
+    n_wf2 = len(wf2)
+    n_kw1 = len(kw1)
+    n_kw2 = len(kw2)
+
+    # 評価するための変数
+    total_wf_k1 = 0
+    total_kw_k1 = 0
+    total_wf_k2 = 0
+    total_kw_k2 = 0
+
+    # n-20 ~ nまで K1
+    for index, value in enumerate(wf1.values()):
+        # n-20 ~ n の範囲で
+        if num-20 > index or index > num:
+            break
+
+        # indexの低いもの（出現数が高い）ほど、大きく
+        total_wf_k1 += value * (num-index)
+    total_wf_k1 = int(total_wf_k1/20)
+
+    for index, value in enumerate(kw1.values()):
+        # n-20 ~ n の範囲で
+        if num-20 > index or index > num:
+            break
+
+        total_kw_k1 += value * (num-index)
+    total_kw_k1 = int(total_kw_k1/20)
+
+    total_k1 = total_wf_k1*(0.125) + total_kw_k1
+
+
+    # n-20 ~ nまで K1
+    for index, value in enumerate(wf2.values()):
+        # n-20 ~ n の範囲で
+        if num-20 > index or index > num:
+            break
+
+        total_wf_k2 += value * (num-index)
+    total_wf_k2 = int(total_wf_k2/20)
+
+    for index, value in enumerate(kw2.values()):
+        # n-20 ~ n の範囲で
+        if num-20 > index or index > num:
+            break
+
+        total_kw_k2 += value * (num-index)
+    total_kw_k2 = int(total_kw_k2/20)
+
+    total_k2 = total_wf_k2*(0.125) + total_kw_k2
+
+    # print(f'k1: {total_k1}')
+    # print(f'k2: {total_k2}')
+
+
+    if total_k1 >= total_k2:
+        return 'k1'
+    else:
+        return 'k2'
 
 
 # if __name__ == "__main__":
