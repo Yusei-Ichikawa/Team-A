@@ -1,5 +1,5 @@
 from wordFreq_KeywordFreq import count_word_frequency, CreateDict_SharedWords
-from wordFreq_KeywordFreq import wordFreq, keywordFreq
+from wordFreq_KeywordFreq import wordFreq, keywordFreq, Comper_dataset_WordFreqKeywordFreq
 
 ##### word ferquecies: QとK1、QとK2の共通する単語数をそれぞれ出力する
 ########## (Output the number of words in common between Q and K1, and Q and K2 respectively)
@@ -45,11 +45,13 @@ def main(num=1000):
     # Keyword Frequencies
     S_kw2 = keywordFreq(S_Dict2, S_wf2)
 
+    MostSimilarDatasets = Comper_dataset_WordFreqKeywordFreq(S_wf1, S_wf2, S_kw1, S_kw2, 20)
+
     f_Q.close()
     f_K1.close()
     f_K2.close()
 
-    return S_wf1, S_wf2, S_kw1, S_kw2
+    return S_wf1, S_wf2, S_kw1, S_kw2, MostSimilarDatasets
 
 
 if __name__ == '__main__':
@@ -63,7 +65,7 @@ if __name__ == '__main__':
     ### List type variable of wordfreq and keywordfreq is wf, kw, respectively, and lsit length is n_.
     ### Q and K1 is 1, QとK2 is 2.
     ## Comper n_wf1 and n_wf2, n_kw1 and n_kw2.
-    wf1, wf2, kw1, kw2 = main(int(ReCorpus))
+    wf1, wf2, kw1, kw2, MostSimilarDatasets = main(int(ReCorpus))
 
     print(f'n_wf1:{len(wf1)}, n_kw1:{len(kw1)}, n_wf2:{len(wf2)}, n_kw2:{len(kw2)}')
     print('---------------------------------------')
@@ -73,6 +75,8 @@ if __name__ == '__main__':
     print('Keyword freq')
     print(f'kw1: {sorted(kw1.items(), key=lambda x: x[1], reverse=True)[:20]}')
     print(f'kw2: {sorted(kw2.items(), key=lambda x: x[1], reverse=True)[:20]}')
+
+    print(f'MostSimilarDatasets is {MostSimilarDatasets}')
 
     # for k, v in kw2.items():
     #     if v <= 2:
