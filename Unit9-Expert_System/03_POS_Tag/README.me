@@ -12,6 +12,18 @@ The program is designed to respond to the name of the text file if you enter som
 However, since there are "K1 dataset.txt" and "K2 dataset.txt" this time, just typing "K" will not respond.
 ただし今回「K1 dataset.txt」、「K2 dataset.txt」があるので、「K」と入力しただけでは反応しません。
 
+<count.py>
+
+Takes a file name and returns the value and data name of the POS tag with the largest discrepancy.
+```
+from count import count
+
+dev, unl_dict = count("filename1", "filename2", ...)
+```
+```
+print(dev, unl_dict)
+>> 0.9807692307692306, 'K2'
+```
 <Display_text.py>
 
 14. allow the user to select any word or string and display the word or string in context essential
