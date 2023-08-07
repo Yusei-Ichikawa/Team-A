@@ -1,4 +1,4 @@
-// Display_pattern.py
+# Display_pattern.py
 
 import os
 from collections import Counter

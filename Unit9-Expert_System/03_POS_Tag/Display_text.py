@@ -1,4 +1,4 @@
-// Display_text.py
+# Display_text.py
 
 import os
 from nltk.tokenize import word_tokenize
