@@ -14,11 +14,11 @@ However, since there are "K1 dataset.txt" and "K2 dataset.txt" this time, just t
 
 <count.py>
 
-Takes a file name and returns the value and data name of the POS tag with the largest discrepancy.
+Returns the value and data name of the POS tag with the largest discrepancy.
 ```
 from count import count
 
-dev, unl_dict = count("filename1", "filename2", ...)
+dev, unl_dict = count()
 ```
 ```
 print(dev, unl_dict)
