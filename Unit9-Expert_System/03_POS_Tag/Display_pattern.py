@@ -1,5 +1,3 @@
-# Display_pattern.py
-
 import os
 from collections import Counter
 from nltk.tokenize import word_tokenize
@@ -8,8 +6,9 @@ from Tag_POS import get_pos_tags
 def display_pos_patterns(tagged_words, selected_word):
     pos_patterns = []
     for i in range(len(tagged_words) - 1):
-        if tagged_words[i][0] == selected_word:
-            pos_patterns.append(tagged_words[i + 1][1])
+        word, pattern = tagged_words[i][0], tagged_words[i + 1][1]
+        if word == selected_word:
+            pos_patterns.append(pattern)
     pos_patterns_counter = Counter(pos_patterns)
 
     print("\n<part-of-speech pattern>")
@@ -19,9 +18,39 @@ def display_pos_patterns(tagged_words, selected_word):
         idx += 1
 
     print("\n")
+    return pos_patterns_counter
+
+def save_all_pos_patterns(tagged_words, filename):
+    pos_patterns = []
+    for i in range(len(tagged_words) - 1):
+        word, next_pos = tagged_words[i][0], tagged_words[i + 1][1]
+        if word.isalpha():
+            pos_patterns.append((word, next_pos))
+    pos_patterns_counter = Counter(pos_patterns)
+
+    pattern_list = []
+
+    # Creation of directories
+    new_fileplace = 'Unit9-Expert_System/POSpattern_Datasets'
+    if not os.path.exists(new_fileplace):
+        os.makedirs(new_fileplace)
+
+    # Create File Name
+    new_filename = "POSpattern_" + filename.replace(" ", "_")
+
+    # Creating and Writing Files
+    with open(os.path.join(new_fileplace, new_filename), 'w') as new_file:
+        for (word, pattern), count in pos_patterns_counter.items():
+            pattern_tuple = (word, pattern, count)
+            pattern_list.append(pattern_tuple)
+
+        # ファイルにリスト形式で書き込み
+        new_file.write(str(pattern_list))
+
+    return pattern_list
 
 def main():
-    fileplace = 'Unit9/Datasets'
+    fileplace = 'Unit9-Expert_System/Datasets'
     filenames = [filename for filename in os.listdir(fileplace) if filename.endswith('.txt')]
 
     # Allow user to select email
@@ -40,6 +69,10 @@ def main():
 
     # Show part-of-speech patterns following the selected word
     display_pos_patterns(tagged_words, selected_word)
+
+    # Save all part-of-speech patterns to a file
+    save_all_pos_patterns(tagged_words, selected_filename)
+
 
 def get_user_selection(prompt, max_index):
     while True:
